@@ -9,17 +9,15 @@ for i in range(1,61):
     print(pathname)
     df = pandas.read_csv(pathname)
     #get the columns of df
-    df.columns=['frame','id','x','y','width','height','xVelocity',
-            'yVelocity','xAcceleration','yAcceleration','frontSightDistance',
-            'backSightDistance','dhw','thw','ttc','precedingXVelocity',
-            'precedingId','followingId','leftPrecedingId','leftAlongsideId',
-            'leftFollowingId','rightPrecedingId','rightAlongsideId','rightFollowingId','laneId'
-            ]
-    c=list(df.columns)
-    print(path)
-    print(c[1:2])
-    group=df.groupby(c[1:2])
-    for key, df in group:
-        print(key)
-        print(df)
-    print(group)
+    cols = [
+        'frame','id','x','y','width','height','xVelocity',
+        'yVelocity','xAcceleration','yAcceleration','frontSightDistance',
+        'backSightDistance','dhw','thw','ttc','precedingXVelocity',
+        'precedingId','followingId','leftPrecedingId','leftAlongsideId',
+        'leftFollowingId','rightPrecedingId','rightAlongsideId','rightFollowingId','laneId'
+    ]
+
+    for id in df['id'].unique():
+        sub_df = df[df['id'] == id][cols]
+        csvname = path + '_' + f'{id}'
+        sub_df.to_csv(r'E:/21_10_Control Transition/data_management/data_tracks/' + f'{csvname}_data.csv',index=0)

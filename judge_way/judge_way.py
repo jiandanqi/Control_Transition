@@ -2,7 +2,8 @@ import numpy as np
 import math
 import sys
 import pandas as pd
-
+import os
+from pathlib import Path
 # 上车道中线坐标
 # 1为双车道 2为三车道
 num_up1 = 0
@@ -121,7 +122,20 @@ print('双车道（下）：' + f'{dic_down_1}')
 print('三车道（下）：' + f'{dic_down_2}')
 print('-------------------------------------------------------------------------')
 print('\n')
-# 跨道点判断：判断车辆轨迹是否与车道线相交
+# 跨道判断：判断车辆轨迹是否与车道线相交
+num_lane_changing = 0  # 换道车辆数量
+path_data_tracks = r'E:\21_10_Control Transition\data_management\data_tracks'
+path_data_tracks_list = os.listdir(path_data_tracks)  # 将csv文件名存储在列表里
+for i in range(len(path_data_tracks_list)):
+    path_data_tracks_name = 'E:/21_10_Control Transition/data_management/data_tracks/' + path_data_tracks_list[i]
+    data_tracks = pd.read_csv(path_data_tracks_name)
+    data_tracks_lane = data_tracks['laneId']  # 车行走的道
+    data_tracks_lane_list = data_tracks_lane.values.tolist()  # 将laneId列中的数据保存在列表里
+    set_tracks_lane = set(data_tracks_lane_list)  # set集合中不允许重复元素出现
+    if len(set_tracks_lane) > 1:
+        num_lane_changing = num_lane_changing + 1
+print(num_lane_changing)  # 换道车辆数量
+
 
 
 # 汽车航向角

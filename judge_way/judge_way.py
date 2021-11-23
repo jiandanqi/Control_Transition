@@ -4,6 +4,9 @@ import sys
 import pandas as pd
 import os
 from pathlib import Path
+'''
+这个文件是统计各车道交通线坐标与判断统计换道行为以及统计收集换道周边车辆数据
+'''
 # 上车道中线坐标
 # 1为双车道 2为三车道
 num_up1 = 0
@@ -122,7 +125,7 @@ print('双车道（下）：' + f'{dic_down_1}')
 print('三车道（下）：' + f'{dic_down_2}')
 print('-------------------------------------------------------------------------')
 print('\n')
-# 跨道判断：判断车辆轨迹是否与车道线相交
+# 跨道判断：判断车辆是否换道
 num_lane_changing = 0  # 换道车辆数量
 path_data_tracks = r'E:\21_10_Control Transition\data_management\data_tracks'
 path_data_tracks_list = os.listdir(path_data_tracks)  # 将csv文件名存储在列表里
